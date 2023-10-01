@@ -31,8 +31,13 @@
         "no-unused-vars": "error",
         "indent": [
             "error",
-            2
+            2,
+            {
+                "ignoredNodes": [
+                    "PropertyDefinition"
+                ]
+            }
         ],
-        "no-console":"error"
+        "no-console": "error"
     }
 }
