@@ -4,7 +4,7 @@ import { validationError } from '../../interfaces/validation/validation.interfac
 import {
   apiResponse,
   buildResponseObject,
-} from '../responses/ApiResponse.response';
+} from '../responses/apiResponse.response';
 import { httpStatusCode } from '../../interfaces/api/httpStatusCodes.interface';
 
 const validate: RequestHandler = async (

@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken';
 import {
   buildResponseInternalErrorObject,
   buildResponseObject,
-} from '../../utils/responses/ApiResponse.response';
+} from '../../utils/responses/apiResponse.response';
 import { httpStatusCode } from '../../interfaces/api/httpStatusCodes.interface';
 
 export const login = async (
