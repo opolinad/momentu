@@ -2,11 +2,14 @@ import User from '../../../db/models/user.model';
 import { response } from '../../interfaces/api/response.interface';
 import bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
 import {
   buildResponseInternalErrorObject,
   buildResponseObject,
 } from '../../utils/responses/apiResponse.response';
 import { httpStatusCode } from '../../interfaces/api/httpStatusCodes.interface';
+
+dotenv.config();
 
 export const login = async (
   user: User,
@@ -39,4 +42,22 @@ const generateAuthToken = async (user: User): Promise<string> => {
     },
   );
   return token;
+};
+
+export const register = async (
+  user: User,
+): Promise<response<null | { token: string }>> => {
+  try {
+    user.password = bcrypt.hashSync(
+      user.password,
+      Number(process.env.BCRYPT_SALT_ROUNDS),
+    );
+    const userCreated = await User.create({ ...user });
+    const token: string = await generateAuthToken(userCreated);
+    return buildResponseObject(httpStatusCode.Created, 'Register successful', {
+      token,
+    });
+  } catch (error) {
+    return buildResponseInternalErrorObject();
+  }
 };
