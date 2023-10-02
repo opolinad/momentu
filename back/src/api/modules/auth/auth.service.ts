@@ -38,7 +38,7 @@ const generateAuthToken = async (user: User): Promise<string> => {
     { userId: user.id, userRoleId: user.roleId },
     process.env.JWT_SECRET,
     {
-      expiresIn: '15m',
+      expiresIn: '6h',
     },
   );
   return token;
