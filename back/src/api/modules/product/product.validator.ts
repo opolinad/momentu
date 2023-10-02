@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { buildValidationsArray } from '../../utils/validation/validation.utils';
 import Product from '../../../db/models/product.model';
 
@@ -33,4 +33,22 @@ export const createProductValidator = buildValidationsArray([
     .bail()
     .isURL()
     .withMessage('Image url is incorrect'),
+]);
+
+export const productExists = buildValidationsArray([
+  param('productId')
+    .exists()
+    .withMessage('Product id is required')
+    .bail()
+    .isInt()
+    .toInt()
+    .withMessage('Product id must be integer')
+    .bail()
+    .custom(async (value, { req }) => {
+      const product = await Product.findByPk(value);
+      if (!product) {
+        throw new Error('Product does not exist');
+      }
+      req.product = product;
+    }),
 ]);

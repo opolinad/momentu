@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { apiResponse } from '../../utils/responses/apiResponse.response';
-import { getProducts, saveProduct } from './product.service';
+import { getOneProduct, getProducts, saveProduct } from './product.service';
 import { paginationItems } from '../../utils/pagination/pagination.utils';
 import Product from '../../../db/models/product.model';
+import { productRequest } from '../../interfaces/api/request.interface';
 
 export const getAllProducts = async (
   req: Request,
@@ -19,5 +20,13 @@ export const createProduct = async (
   res: Response,
 ): Promise<void> => {
   const responseObject = await saveProduct(req.body as Product);
+  apiResponse(res, responseObject);
+};
+
+export const getProduct = async (
+  req: productRequest,
+  res: Response,
+): Promise<void> => {
+  const responseObject = await getOneProduct(req.product);
   apiResponse(res, responseObject);
 };

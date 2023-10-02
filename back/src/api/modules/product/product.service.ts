@@ -50,3 +50,15 @@ export const saveProduct = async (
     return buildResponseInternalErrorObject();
   }
 };
+
+export const getOneProduct = async (
+  product: Product,
+): Promise<response<null | { product: Product }>> => {
+  try {
+    return buildResponseObject(httpStatusCode.OK, 'Product retrieved', {
+      product,
+    });
+  } catch (error) {
+    return buildResponseInternalErrorObject();
+  }
+};
