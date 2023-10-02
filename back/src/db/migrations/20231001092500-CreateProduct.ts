@@ -13,7 +13,7 @@ module.exports = {
         unique: true,
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       category: {
         type: DataTypes.STRING,

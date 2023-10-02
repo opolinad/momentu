@@ -15,7 +15,7 @@ export default class Product extends Model {
   @Column(DataType.STRING)
   title: string;
 
-  @Column(DataType.STRING)
+  @Column(DataType.TEXT)
   description: string;
 
   @Column(DataType.STRING)
