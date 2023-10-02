@@ -4,6 +4,7 @@ import './CardContainer.css';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import authorizedFetch from '../../utils/authorizedFetch';
+import NavBar from '../NavBar/NavBar';
 
 const CardContainer = () => {
   const [products, setProducts] = useState([]);
@@ -61,7 +62,7 @@ const CardContainer = () => {
           <Toast.Body>{error}</Toast.Body>
         </Toast>
       </ToastContainer>
-      <h3 id="cards-container-title">Productos</h3>
+      <NavBar />
       <div id='cards-container'>
         {products.map((product) => (
           <Card className='card' key={product.title}>

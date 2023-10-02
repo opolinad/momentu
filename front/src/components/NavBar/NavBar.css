@@ -1,0 +1,36 @@
+#navbar{
+  height: 100px;
+  background-color: var(--font-color);
+}
+
+#navbar .navbar-brand{
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#navbar div.navbar-nav a.nav-link{
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-left: 30px;
+}
+
+#navbar #search-btn{
+  background-color: transparent;
+  border: 3px solid white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* button on hover shake */
+#navbar #search-btn:hover{
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
