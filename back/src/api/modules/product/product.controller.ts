@@ -4,6 +4,7 @@ import {
   changeProduct,
   getOneProduct,
   getProducts,
+  removeProduct,
   saveProduct,
 } from './product.service';
 import { paginationItems } from '../../utils/pagination/pagination.utils';
@@ -44,5 +45,13 @@ export const updateProduct = async (
     req.product.id,
     req.body as Product,
   );
+  apiResponse(res, responseObject);
+};
+
+export const deleteProduct = async (
+  req: productRequest,
+  res: Response,
+): Promise<void> => {
+  const responseObject = await removeProduct(req.product);
   apiResponse(res, responseObject);
 };

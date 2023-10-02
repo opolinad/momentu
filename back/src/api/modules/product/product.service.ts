@@ -74,3 +74,14 @@ export const changeProduct = async (
     return buildResponseInternalErrorObject();
   }
 };
+
+export const removeProduct = async (
+  product: Product,
+): Promise<response<null>> => {
+  try {
+    await product.destroy();
+    return buildResponseObject(httpStatusCode.OK, 'Product deleted');
+  } catch (error) {
+    return buildResponseInternalErrorObject();
+  }
+};

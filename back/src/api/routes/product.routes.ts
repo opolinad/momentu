@@ -1,8 +1,10 @@
 import express, { Router } from 'express';
 import {
   createProduct,
+  deleteProduct,
   getAllProducts,
   getProduct,
+  updateProduct,
 } from '../modules/product/product.controller';
 import {
   createProductValidator,
@@ -22,5 +24,7 @@ router.use('/:productId', productExists);
 router
   .route('/:productId')
   .get(getProduct)
-  .put(createProductValidator, updateProduct);
+  .put(createProductValidator, updateProduct)
+  .delete(deleteProduct);
+
 export default router;
