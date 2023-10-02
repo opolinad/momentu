@@ -10,8 +10,8 @@ export const createProductValidator = buildValidationsArray([
     .isString()
     .withMessage('Title is incorrect')
     .custom(async (value) => {
-      const user = await Product.findOne({ where: { title: value } });
-      if (user) {
+      const product = await Product.findOne({ where: { title: value } });
+      if (product) {
         throw new Error('Product title already registered');
       }
     }),
