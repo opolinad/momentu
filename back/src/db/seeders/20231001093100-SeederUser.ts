@@ -14,7 +14,7 @@ module.exports = {
           lastName: 'User',
           email: 'admin@mail.com',
           password: bcrypt.hashSync(
-            'password',
+            'Aa12345*',
             Number(process.env.BCRYPT_SALT_ROUNDS),
           ),
           roleId: 1,
