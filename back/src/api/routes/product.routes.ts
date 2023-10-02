@@ -9,6 +9,8 @@ import { userAuthenticated } from '../middlewares/user/userAuthenticated.middlew
 const router: Router = express.Router();
 
 router.use(userAuthenticated);
-router.get('', getAllProducts);
-router.post('', createProductValidator, createProduct);
+router
+  .route('/')
+  .get(getAllProducts)
+  .post(createProductValidator, createProduct);
 export default router;
