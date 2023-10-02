@@ -19,5 +19,8 @@ router
   .post(createProductValidator, createProduct);
 
 router.use('/:productId', productExists);
-router.route('/:productId').get(getProduct);
+router
+  .route('/:productId')
+  .get(getProduct)
+  .put(createProductValidator, updateProduct);
 export default router;

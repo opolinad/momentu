@@ -62,3 +62,15 @@ export const getOneProduct = async (
     return buildResponseInternalErrorObject();
   }
 };
+
+export const changeProduct = async (
+  productId: number,
+  product: Product,
+): Promise<response<null>> => {
+  try {
+    await Product.update({ ...product }, { where: { id: productId } });
+    return buildResponseObject(httpStatusCode.OK, 'Product updated');
+  } catch (error) {
+    return buildResponseInternalErrorObject();
+  }
+};

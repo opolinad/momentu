@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import { apiResponse } from '../../utils/responses/apiResponse.response';
-import { getOneProduct, getProducts, saveProduct } from './product.service';
+import {
+  changeProduct,
+  getOneProduct,
+  getProducts,
+  saveProduct,
+} from './product.service';
 import { paginationItems } from '../../utils/pagination/pagination.utils';
 import Product from '../../../db/models/product.model';
 import { productRequest } from '../../interfaces/api/request.interface';
@@ -28,5 +33,16 @@ export const getProduct = async (
   res: Response,
 ): Promise<void> => {
   const responseObject = await getOneProduct(req.product);
+  apiResponse(res, responseObject);
+};
+
+export const updateProduct = async (
+  req: productRequest,
+  res: Response,
+): Promise<void> => {
+  const responseObject = await changeProduct(
+    req.product.id,
+    req.body as Product,
+  );
   apiResponse(res, responseObject);
 };
