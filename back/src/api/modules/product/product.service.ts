@@ -37,3 +37,16 @@ export const getProducts = async (
     return buildResponseInternalErrorObject();
   }
 };
+
+export const saveProduct = async (
+  product: Product,
+): Promise<response<null | { product: Product }>> => {
+  try {
+    const productCreated = await Product.create({ ...product });
+    return buildResponseObject(httpStatusCode.Created, 'Product created', {
+      product: productCreated,
+    });
+  } catch (error) {
+    return buildResponseInternalErrorObject();
+  }
+};
