@@ -96,9 +96,7 @@ export const updatePaymentStatus = async (
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2023-08-16',
     });
-    console.log('sessioid',sessionId);
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    console.log('session', session);
     await Payment.update(
       {
         statusId: session.payment_status === 'paid' ? 2 : 3,
@@ -112,7 +110,6 @@ export const updatePaymentStatus = async (
 
     return buildResponseObject(httpStatusCode.OK, 'Payment updated', null);
   } catch (error) {
-    console.log(error);
     return buildResponseInternalErrorObject();
   }
 };
