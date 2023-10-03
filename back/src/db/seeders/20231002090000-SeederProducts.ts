@@ -5,6 +5,7 @@ interface productData {
   description: string;
   category: string;
   image: string;
+  price: number;
 }
 
 module.exports = {
@@ -21,6 +22,7 @@ module.exports = {
         description: product.description,
         category: product.category,
         imageUrl: product.image,
+        price: product.price,
         createdAt: new Date(),
         updatedAt: new Date(),
       }));

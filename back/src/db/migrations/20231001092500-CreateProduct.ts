@@ -21,6 +21,9 @@ module.exports = {
       imageUrl: {
         type: DataTypes.STRING,
       },
+      price: {
+        type: DataTypes.DOUBLE,
+      },
       createdAt: {
         type: DataTypes.DATE,
       },

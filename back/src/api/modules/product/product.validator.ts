@@ -15,6 +15,12 @@ export const createProductValidator = buildValidationsArray([
         throw new Error('Product title already registered');
       }
     }),
+  body('price')
+    .notEmpty()
+    .withMessage('Price is required')
+    .bail()
+    .isNumeric()
+    .withMessage('Price is incorrect'),
   body('description')
     .notEmpty()
     .withMessage('Description is required')

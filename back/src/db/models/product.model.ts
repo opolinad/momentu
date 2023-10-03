@@ -24,6 +24,9 @@ export default class Product extends Model {
   @Column(DataType.STRING)
   imageUrl: string;
 
+  @Column(DataType.DOUBLE)
+  price: string;
+
   @BelongsToMany(() => Order, () => OrderProduct)
   orders: Order[];
 }
