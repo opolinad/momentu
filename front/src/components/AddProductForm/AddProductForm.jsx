@@ -17,6 +17,7 @@ const AddProductForm = ({ submited }) => {
     description: '',
     category: '',
     imageUrl: '',
+    price: 0
   });
 
   useEffect(() => {
@@ -157,6 +158,21 @@ const AddProductForm = ({ submited }) => {
             value={productInfo.description}
             onChange={handleChange}
             name='description'
+          />
+          <Form.Control.Feedback type='invalid'>
+            Description is required
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md='12' className='mt-2'>
+          <Form.Label>Price (US $)</Form.Label>
+          <Form.Control
+            required
+            rows={3}
+            type='number'
+            placeholder='150.78'
+            value={productInfo.price}
+            onChange={handleChange}
+            name='price'
           />
           <Form.Control.Feedback type='invalid'>
             Description is required
