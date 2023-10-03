@@ -18,13 +18,13 @@ const NavBar = () => {
     <Navbar expand='lg' id='navbar'>
       <AddProduct open={open} setOpen={setOpen} />
       <Container fluid>
-        <Navbar.Brand>Productos</Navbar.Brand>
+        <Navbar.Brand>Products</Navbar.Brand>
         <Nav
           className='me-auto my-2 my-lg-0'
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
-          <Nav.Link onClick={() => setOpen(true)}>Crear producto</Nav.Link>
+          <Nav.Link onClick={() => setOpen(true)}>Create product</Nav.Link>
         </Nav>
         <SearchBar />
         <Nav
