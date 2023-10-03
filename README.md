@@ -22,9 +22,10 @@ If you need to migrate models and seed database, you should run:
     npm run prepareDb
 
 ## Frontend server
+You must make a copy of the .env.example file and change it's name to .env file. Then you have to set the apporpiate values for each one of the variables. These variables are not provided here for security reasons.
 
-This one is way much easier, just two commands are needed:
+To start the server this one is way much easier, just two commands are needed:
 
-`npm install`
+    npm install
 
-`npm start`
+    npm startYou must make a copy of the .env.example file and change it's name to .env file. Then you have to set the apporpiate values for each one of the variables. These variables are not provided here for security reasons.
