@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import './CardContainer.css';
 import Toast from 'react-bootstrap/Toast';
@@ -6,14 +6,20 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import authorizedFetch from '../../utils/authorizedFetch';
 import NavBar from '../NavBar/NavBar';
 
+const SearchContext = createContext();
+
 const CardContainer = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
 
+  const handleSearch = (searchString) => {
+    setSearch(searchString);
+  };
+
   useEffect(() => {
     fetchData();
-  }, [search]);
+  } , [search]);
 
   async function fetchData() {
     const productUrl = `${process.env.REACT_APP_API_URL}/product${
@@ -47,7 +53,7 @@ const CardContainer = () => {
   };
 
   return (
-    <div>
+    <SearchContext.Provider value={{ search, handleSearch }}>
       <ToastContainer
         className='p-3'
         position='top-center'
@@ -65,7 +71,7 @@ const CardContainer = () => {
           <Toast.Body>{error}</Toast.Body>
         </Toast>
       </ToastContainer>
-      <NavBar onSearch={setSearch} />
+      <NavBar />
       <div id='cards-container'>
         {products.map((product) => (
           <Card className='card' key={product.title}>
@@ -77,8 +83,10 @@ const CardContainer = () => {
           </Card>
         ))}
       </div>
-    </div>
+    </SearchContext.Provider>
   );
 };
 
 export default CardContainer;
+
+export const useSearch = () => useContext(SearchContext);

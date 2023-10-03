@@ -1,0 +1,5 @@
+ul.search-bar__history {
+  top:50px !important;
+  background-color: white !important;
+  z-index: 1000 !important;
+}
