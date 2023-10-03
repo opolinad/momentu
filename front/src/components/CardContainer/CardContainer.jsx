@@ -5,6 +5,7 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import authorizedFetch from '../../utils/authorizedFetch';
 import NavBar from '../NavBar/NavBar';
+import { makePayment } from '../../utils/payment';
 
 const SearchContext = createContext();
 
@@ -19,7 +20,7 @@ const CardContainer = () => {
 
   useEffect(() => {
     fetchData();
-  } , [search]);
+  }, [search]);
 
   async function fetchData() {
     const productUrl = `${process.env.REACT_APP_API_URL}/product${
@@ -52,6 +53,14 @@ const CardContainer = () => {
     return errorMessages;
   };
 
+  const handlePayment = async (product) => {
+    try {
+      makePayment(product);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <SearchContext.Provider value={{ search, handleSearch }}>
       <ToastContainer
@@ -79,6 +88,12 @@ const CardContainer = () => {
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
+              <button
+                className='buy-button'
+                onClick={() => handlePayment(product)}
+              >
+                Buy for {product.price}
+              </button>
             </Card.Body>
           </Card>
         ))}
