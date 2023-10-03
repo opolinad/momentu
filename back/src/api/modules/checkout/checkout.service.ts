@@ -26,7 +26,7 @@ export const createCheckout = async (
     const paymentCreated = await savePayment(product);
     const orderCreated = await saveOrder(userId, paymentCreated.id);
     await saveOrderProduct(orderCreated.id, productId);
-    const session = await createStripePayment(product);
+    const session = await createStripePayment(product, paymentCreated.id);
     return buildResponseObject(httpStatusCode.Created, 'Checkout created', {
       session,
     });
@@ -61,6 +61,7 @@ const saveOrderProduct = async (orderId: number, productId: number) => {
 
 const createStripePayment = async (
   product: Product,
+  paymentId: number,
 ): Promise<Stripe.Checkout.Session> => {
   const CLIENT_URL = process.env.CLIENT_URL;
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -81,8 +82,37 @@ const createStripePayment = async (
       },
     ],
     mode: 'payment',
-    success_url: `${CLIENT_URL}/success`,
-    cancel_url: `${CLIENT_URL}/cancel`,
+    success_url: `${CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}&payment_id=${paymentId}`,
+    cancel_url: `${CLIENT_URL}/cancel?session_id={CHECKOUT_SESSION_ID}&payment_id=${paymentId}`,
   });
   return session;
+};
+
+export const updatePaymentStatus = async (
+  sessionId: string,
+  paymentId: number,
+): Promise<response<null>> => {
+  try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2023-08-16',
+    });
+    console.log('sessioid',sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    console.log('session', session);
+    await Payment.update(
+      {
+        statusId: session.payment_status === 'paid' ? 2 : 3,
+      },
+      {
+        where: {
+          id: paymentId,
+        },
+      },
+    );
+
+    return buildResponseObject(httpStatusCode.OK, 'Payment updated', null);
+  } catch (error) {
+    console.log(error);
+    return buildResponseInternalErrorObject();
+  }
 };
