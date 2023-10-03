@@ -20,7 +20,11 @@ export const getProducts = async (
 > => {
   try {
     const { limit, offset, pageNumber } = paginationItems;
-    const products = await Product.findAndCountAll({ limit, offset });
+    const products = await Product.findAndCountAll({
+      limit,
+      offset,
+      order: [['createdAt', 'DESC']]
+    });
     const productsPaginated = paginateResults(
       products,
       limit,
