@@ -19,7 +19,7 @@ export default class Order extends Model {
 
   @ForeignKey(() => Payment)
   @Column(DataType.INTEGER)
-  paymentId: string;
+  paymentId: number;
 
   @BelongsToMany(() => Product, () => OrderProduct)
   products: Product[];
