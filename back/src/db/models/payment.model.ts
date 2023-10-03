@@ -14,7 +14,7 @@ export default class Payment extends Model {
   @Column(DataType.INTEGER)
   statusId: number;
 
-  @Column(DataType.INTEGER)
+  @Column(DataType.DOUBLE)
   price: number;
 
   @Column(DataType.DATE)

@@ -18,7 +18,7 @@ module.exports = {
         onDelete: 'NO ACTION',
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
       },
       date: {
         type: DataTypes.DATE,
