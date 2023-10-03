@@ -75,7 +75,7 @@ const createStripePayment = async (
           product_data: {
             name: product.title,
           },
-          unit_amount: product.price * 100,
+          unit_amount: Math.round(product.price * 100),
         },
         quantity: 1,
       },
