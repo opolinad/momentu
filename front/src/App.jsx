@@ -4,6 +4,7 @@ import LogIn from './components/LogIn/LogIn';
 import Register from './components/Register/Register';
 import React from 'react';
 import './App.css';
+import { PaymentResult } from './components/PaymentResult/PaymentResult';
 
 function App() {
   const isUserLoogedIn = Boolean(localStorage.getItem('token'));
@@ -12,18 +13,18 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path='/'
           element={
-            isUserLoogedIn ? <CardContainer /> : <Navigate to="/login" />
+            isUserLoogedIn ? <CardContainer /> : <Navigate to='/login' />
           }
         />
         <Route
-          path="/login"
-          element={isUserLoogedIn ? <Navigate to="/" /> : <LogIn />}
+          path='/login'
+          element={isUserLoogedIn ? <Navigate to='/' /> : <LogIn />}
         />
-        <Route
-          path="/signup" element={ <Register />}
-        />
+        <Route path='/signup' element={<Register />} />
+        <Route path='/success' element={<PaymentResult />} />
+        <Route path='/cancel' element={<PaymentResult />} />
       </Routes>
     </BrowserRouter>
   );
