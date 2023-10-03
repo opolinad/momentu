@@ -1,0 +1,14 @@
+#add-product-container{
+  color: var(--font-color);
+  background-color: var(--background-color);
+  margin: auto;
+}
+
+#add-product-container .card-title{
+  text-align: center;
+  font-size: 2rem;
+}
+
+#add-product-container #add-product-btn{
+  display: none;
+}

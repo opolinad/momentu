@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './NavBar.css';
+import AddProduct from '../AddProduct/AddProduct';
 
 const NavBar = () => {
+  const [open, setOpen] = useState(false);
   const logout = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
@@ -14,6 +16,7 @@ const NavBar = () => {
 
   return (
     <Navbar expand='lg' id='navbar'>
+      <AddProduct open={open} setOpen={setOpen} />
       <Container fluid>
         <Navbar.Brand>Productos</Navbar.Brand>
         <Nav
@@ -21,7 +24,7 @@ const NavBar = () => {
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
-          <Nav.Link href='#action1'>Crear producto</Nav.Link>
+          <Nav.Link onClick={()=>setOpen(true)}>Crear producto</Nav.Link>
         </Nav>
         <Form className='d-flex'>
           <Form.Control
