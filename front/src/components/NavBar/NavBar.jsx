@@ -7,11 +7,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import './NavBar.css';
 import AddProduct from '../AddProduct/AddProduct';
 
-const NavBar = () => {
+//eslint-disable-next-line
+const NavBar = ({ onSearch }) => {
   const [open, setOpen] = useState(false);
   const logout = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
+  };
+
+  const handleSearch = () => {
+    const searchParam = document.getElementById('search-input').value;
+    onSearch(searchParam);
   };
 
   return (
@@ -32,8 +38,9 @@ const NavBar = () => {
             placeholder='Search'
             className='me-2'
             aria-label='Search'
+            id="search-input"
           />
-          <Button id='search-btn'>Search</Button>
+          <Button id='search-btn' onClick={handleSearch}>Search</Button>
         </Form>
         <Nav
           className='my-2 my-lg-0'

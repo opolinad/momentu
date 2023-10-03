@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import Product from '../../../db/models/product.model';
 import { httpStatusCode } from '../../interfaces/api/httpStatusCodes.interface';
 import { response } from '../../interfaces/api/response.interface';
@@ -15,16 +16,36 @@ import {
 
 export const getProducts = async (
   paginationItems: pagination,
+  search: string,
 ): Promise<
   response<null | unknown | { products: paginationResults<results> }>
 > => {
   try {
     const { limit, offset, pageNumber } = paginationItems;
+    let whereClause = {};
+    if (search) {
+      whereClause = {
+        [Op.or]: [
+          {
+            title: {
+              [Op.iLike]: `%${search}%`,
+            },
+          },
+          {
+            description: {
+              [Op.iLike]: `%${search}%`,
+            },
+          },
+        ],
+      };
+    }
     const products = await Product.findAndCountAll({
       limit,
       offset,
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
+      where: whereClause,
     });
+
     const productsPaginated = paginateResults(
       products,
       limit,
@@ -37,7 +58,6 @@ export const getProducts = async (
     });
   } catch (error) {
     if (error instanceof BusinessException) return error.getResponseObject();
-
     return buildResponseInternalErrorObject();
   }
 };

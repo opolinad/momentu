@@ -9,13 +9,16 @@ import NavBar from '../NavBar/NavBar';
 const CardContainer = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [search]);
 
   async function fetchData() {
-    const productUrl = `${process.env.REACT_APP_API_URL}/product`;
+    const productUrl = `${process.env.REACT_APP_API_URL}/product${
+      search ? `?search=${search}` : ''
+    }`;
     try {
       const data = await authorizedFetch(productUrl);
       if (data.data.errors) {
@@ -57,12 +60,12 @@ const CardContainer = () => {
           autohide
         >
           <Toast.Header>
-            <strong className='me-auto'>Login</strong>
+            <strong className='me-auto'>Products</strong>
           </Toast.Header>
           <Toast.Body>{error}</Toast.Body>
         </Toast>
       </ToastContainer>
-      <NavBar />
+      <NavBar onSearch={setSearch} />
       <div id='cards-container'>
         {products.map((product) => (
           <Card className='card' key={product.title}>

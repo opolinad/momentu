@@ -15,9 +15,9 @@ export const getAllProducts = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { page, perPage } = req.query;
+  const { page, perPage, search } = req.query;
   const pagination = paginationItems(page as string, perPage as string);
-  const responseObject = await getProducts(pagination);
+  const responseObject = await getProducts(pagination, search as string);
   apiResponse(res, responseObject);
 };
 
